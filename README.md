@@ -34,6 +34,7 @@ Single-pane dashboard for tracking GitHub repository usage and developer effecti
 - Responsive single-pane dashboard
 - Comprehensive test suite with >90% coverage
 - Environment-based configuration
+- Rate limiting protection (100 requests per 15 minutes per IP)
 
 ## Prerequisites
 
