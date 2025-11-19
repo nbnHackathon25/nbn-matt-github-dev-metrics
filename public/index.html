@@ -324,7 +324,7 @@
 
             return `
                 <div class="metric-card">
-                    <h2>1. Commits per User</h2>
+                    <h2>Commits per User</h2>
                     <div class="metric-value">${commits.total}</div>
                     <div class="metric-label">Total commits in ${commits.period}</div>
                     <div class="chart-container">
@@ -341,7 +341,7 @@
         function renderPRCard(prMetrics) {
             return `
                 <div class="metric-card">
-                    <h2>2. Pull Request Metrics</h2>
+                    <h2>Pull Request Metrics</h2>
                     <div class="stat-row">
                         <div class="stat-box">
                             <div class="label">Merge Rate</div>
@@ -378,7 +378,7 @@
         function renderIssuesCard(issueMetrics) {
             return `
                 <div class="metric-card">
-                    <h2>3. Issue Triage & Resolution</h2>
+                    <h2>Issue Triage & Resolution</h2>
                     <div class="stat-row">
                         <div class="stat-box">
                             <div class="label">Avg Triage Time</div>
@@ -411,7 +411,7 @@
         function renderContributionsCard(trends) {
             return `
                 <div class="metric-card">
-                    <h2>4. Developer Contribution Trends</h2>
+                    <h2>Developer Contribution Trends</h2>
                     <div class="metric-value">${trends.totalContributors}</div>
                     <div class="metric-label">Active contributors in ${trends.period}</div>
                     <div class="contributor-list">
@@ -440,7 +440,7 @@
 
             return `
                 <div class="metric-card" style="grid-column: 1 / -1;">
-                    <h2>5. Repository Activity Heatmap</h2>
+                    <h2>Repository Activity Heatmap</h2>
                     <div class="metric-value">${activity.totalCommits}</div>
                     <div class="metric-label">Total commits in ${activity.period}</div>
                     

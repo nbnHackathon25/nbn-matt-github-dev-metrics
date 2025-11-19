@@ -7,11 +7,11 @@ Single-pane dashboard for tracking GitHub repository usage and developer effecti
 ### Version 1.0.0 (2025-11-19)
 - Initial release with comprehensive metrics dashboard
 - Implemented 5 core metrics:
-  1. Number of commits per user
-  2. PR merge rate and cycle time
-  3. Issue triage and resolution speed
-  4. Developer contribution trends
-  5. Repository activity heatmaps
+  - Number of commits per user
+  - PR merge rate and cycle time
+  - Issue triage and resolution speed
+  - Developer contribution trends
+  - Repository activity heatmaps
 - Added comprehensive test suite with Jest
 - Web-based dashboard with real-time metrics
 - RESTful API for programmatic access
@@ -20,11 +20,22 @@ Single-pane dashboard for tracking GitHub repository usage and developer effecti
 
 ### Dashboard Metrics
 
-1. **Commits per User** - Track individual developer contributions with commit counts
-2. **PR Metrics** - Monitor merge rates, cycle times, and pull request status
-3. **Issue Metrics** - Analyze triage time and resolution speed for issues
-4. **Contribution Trends** - View top contributors and their activity levels
-5. **Activity Heatmap** - Visualize repository activity by day, hour, and day of week
+- **Commits per User** - Track individual developer contributions with commit counts
+- **PR Metrics** - Monitor merge rates, cycle times, and pull request status
+- **Issue Metrics** - Analyze triage time and resolution speed for issues
+- **Contribution Trends** - View top contributors and their activity levels
+- **Activity Heatmap** - Visualize repository activity by day, hour, and day of week
+
+### Dashboard Design
+
+The dashboard follows a professional, GitHub-inspired design system with:
+- **Dark theme**: Modern dark UI optimized for developer workflows
+- **High contrast**: WCAG AA compliant color scheme for optimal readability
+- **System fonts**: Fast-loading, native font stack for consistent rendering
+- **Responsive layout**: Adapts seamlessly to desktop, tablet, and mobile screens
+- **Clean hierarchy**: Clear visual organization with card-based metric displays
+
+For detailed design specifications, color schemes, typography guidelines, and UX goals, see [DASHBOARD_DESIGN_REQUIREMENTS.md](DASHBOARD_DESIGN_REQUIREMENTS.md).
 
 ### Technical Features
 
@@ -198,6 +209,7 @@ nbn-matt-github-dev-metrics/
 │   └── MetricsController.test.js      # Controller tests
 ├── .env.example                       # Environment template
 ├── .gitignore                         # Git ignore rules
+├── DASHBOARD_DESIGN_REQUIREMENTS.md   # Design specs and guidelines
 ├── jest.config.js                     # Test configuration
 ├── package.json                       # Project dependencies
 └── README.md                          # This file
@@ -211,7 +223,7 @@ nbn-matt-github-dev-metrics/
 2. Add controller method to `src/controllers/MetricsController.js`
 3. Add route in `src/server.js`
 4. Add tests to `tests/GitHubMetricsService.test.js`
-5. Update dashboard UI in `public/index.html`
+5. Update dashboard UI in `public/index.html` (follow design guidelines in `DASHBOARD_DESIGN_REQUIREMENTS.md`)
 6. Update README with new metric details
 7. Increment version number in README and package.json
 
