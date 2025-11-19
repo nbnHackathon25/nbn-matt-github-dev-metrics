@@ -12,10 +12,12 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-            background: #0d1117;
-            color: #c9d1d9;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', 'Helvetica', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1f2e 0%, #0f1419 100%);
+            color: #e6edf3;
             padding: 20px;
+            line-height: 1.6;
+            min-height: 100vh;
         }
 
         .container {
@@ -26,67 +28,99 @@
         h1 {
             color: #58a6ff;
             margin-bottom: 10px;
-            font-size: 2em;
+            font-size: 2.2em;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 10px rgba(88, 166, 255, 0.3);
         }
 
         .subtitle {
-            color: #8b949e;
+            color: #9198a1;
             margin-bottom: 30px;
             font-size: 1.1em;
+            font-weight: 400;
         }
 
         .controls {
-            background: #161b22;
+            background: rgba(22, 27, 34, 0.8);
+            backdrop-filter: blur(10px);
             padding: 20px;
-            border-radius: 6px;
+            border-radius: 12px;
             margin-bottom: 20px;
             display: flex;
             gap: 15px;
             align-items: center;
-            border: 1px solid #30363d;
+            border: 1px solid rgba(48, 54, 61, 0.5);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         .controls label {
-            color: #c9d1d9;
+            color: #e6edf3;
             font-weight: 500;
+            font-size: 0.95em;
         }
 
         .controls select {
-            background: #0d1117;
-            color: #c9d1d9;
-            border: 1px solid #30363d;
-            padding: 8px 12px;
-            border-radius: 6px;
+            background: rgba(13, 17, 23, 0.8);
+            color: #e6edf3;
+            border: 1px solid #444c56;
+            padding: 10px 14px;
+            border-radius: 8px;
             font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .controls select:hover {
+            border-color: #58a6ff;
+            background: rgba(13, 17, 23, 0.95);
+        }
+
+        .controls select:focus {
+            outline: 2px solid #58a6ff;
+            outline-offset: 2px;
         }
 
         .controls button {
-            background: #238636;
+            background: linear-gradient(135deg, #2ea043 0%, #238636 100%);
             color: white;
             border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
+            padding: 10px 20px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 14px;
             font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(35, 134, 54, 0.4);
         }
 
         .controls button:hover {
-            background: #2ea043;
+            background: linear-gradient(135deg, #3fb950 0%, #2ea043 100%);
+            box-shadow: 0 4px 12px rgba(35, 134, 54, 0.6);
+            transform: translateY(-1px);
+        }
+
+        .controls button:active {
+            transform: translateY(0);
         }
 
         .loading {
             text-align: center;
-            padding: 40px;
-            color: #8b949e;
+            padding: 50px;
+            color: #9198a1;
+            font-size: 1.1em;
+            font-weight: 500;
         }
 
         .error {
-            background: #da3633;
+            background: linear-gradient(135deg, #da3633 0%, #b62324 100%);
             color: white;
-            padding: 15px;
-            border-radius: 6px;
+            padding: 16px 20px;
+            border-radius: 10px;
             margin-bottom: 20px;
+            border: 1px solid rgba(218, 54, 51, 0.5);
+            box-shadow: 0 4px 12px rgba(218, 54, 51, 0.3);
+            font-weight: 500;
         }
 
         .metrics-grid {
@@ -97,31 +131,47 @@
         }
 
         .metric-card {
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 6px;
-            padding: 20px;
+            background: rgba(22, 27, 34, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(48, 54, 61, 0.5);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .metric-card:hover {
+            border-color: rgba(88, 166, 255, 0.4);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
         }
 
         .metric-card h2 {
             color: #58a6ff;
-            font-size: 1.3em;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #30363d;
-            padding-bottom: 10px;
+            font-size: 1.35em;
+            margin-bottom: 18px;
+            border-bottom: 2px solid rgba(88, 166, 255, 0.2);
+            padding-bottom: 12px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
         }
 
         .metric-value {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #58a6ff;
+            font-size: 2.8em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #79c0ff 0%, #58a6ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin: 15px 0;
+            letter-spacing: -1px;
         }
 
         .metric-label {
-            color: #8b949e;
-            font-size: 0.9em;
+            color: #9198a1;
+            font-size: 0.92em;
             margin-top: 5px;
+            font-weight: 400;
         }
 
         .metric-item {
@@ -136,12 +186,14 @@
         }
 
         .metric-name {
-            color: #c9d1d9;
+            color: #e6edf3;
+            font-weight: 500;
         }
 
         .metric-count {
             color: #58a6ff;
             font-weight: 600;
+            font-size: 1.05em;
         }
 
         .chart-container {
@@ -149,22 +201,30 @@
         }
 
         .bar {
-            background: #238636;
-            height: 25px;
-            margin: 8px 0;
-            border-radius: 3px;
+            background: linear-gradient(90deg, #2ea043 0%, #238636 100%);
+            height: 28px;
+            margin: 10px 0;
+            border-radius: 6px;
             position: relative;
             min-width: 5%;
+            box-shadow: 0 2px 6px rgba(35, 134, 54, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .bar:hover {
+            box-shadow: 0 4px 10px rgba(35, 134, 54, 0.5);
+            transform: scaleY(1.05);
         }
 
         .bar-label {
             position: absolute;
-            left: 10px;
+            left: 12px;
             top: 50%;
             transform: translateY(-50%);
             color: white;
-            font-size: 12px;
-            font-weight: 500;
+            font-size: 13px;
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         .heatmap {
@@ -175,26 +235,39 @@
         }
 
         .heatmap-cell {
-            background: #161b22;
-            border: 1px solid #30363d;
-            padding: 10px;
+            background: rgba(22, 27, 34, 0.6);
+            border: 1px solid rgba(48, 54, 61, 0.5);
+            padding: 12px;
             text-align: center;
-            border-radius: 4px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .heatmap-cell:hover {
+            border-color: rgba(88, 166, 255, 0.5);
         }
 
         .heatmap-cell.active {
-            background: #238636;
+            background: linear-gradient(135deg, #2ea043 0%, #238636 100%);
+            border-color: rgba(46, 160, 67, 0.6);
+            box-shadow: 0 2px 8px rgba(35, 134, 54, 0.4);
         }
 
         .heatmap-cell.high {
-            background: #2ea043;
+            background: linear-gradient(135deg, #3fb950 0%, #2ea043 100%);
+            border-color: rgba(63, 185, 80, 0.6);
+            box-shadow: 0 2px 10px rgba(35, 134, 54, 0.5);
         }
 
         .timestamp {
             text-align: center;
-            color: #8b949e;
-            font-size: 0.9em;
-            margin-top: 20px;
+            color: #9198a1;
+            font-size: 0.92em;
+            margin-top: 24px;
+            font-weight: 400;
+            padding: 12px;
+            background: rgba(22, 27, 34, 0.4);
+            border-radius: 8px;
         }
 
         .contributor-list {
@@ -211,13 +284,20 @@
         }
 
         .contributor-item:nth-child(even) {
-            background: #0d1117;
+            background: rgba(13, 17, 23, 0.4);
+        }
+
+        .contributor-item:hover:not(.contributor-header) {
+            background: rgba(88, 166, 255, 0.1);
         }
 
         .contributor-header {
             font-weight: 600;
-            color: #8b949e;
-            border-bottom: 2px solid #30363d;
+            color: #9198a1;
+            border-bottom: 2px solid rgba(88, 166, 255, 0.3);
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
         }
 
         .stat-row {
@@ -228,22 +308,35 @@
         }
 
         .stat-box {
-            background: #0d1117;
-            padding: 12px;
-            border-radius: 4px;
-            border: 1px solid #30363d;
+            background: rgba(13, 17, 23, 0.6);
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px solid rgba(48, 54, 61, 0.5);
+            transition: all 0.2s ease;
+        }
+
+        .stat-box:hover {
+            border-color: rgba(88, 166, 255, 0.4);
+            background: rgba(13, 17, 23, 0.8);
         }
 
         .stat-box .label {
-            color: #8b949e;
-            font-size: 0.85em;
-            margin-bottom: 5px;
+            color: #9198a1;
+            font-size: 0.88em;
+            margin-bottom: 6px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .stat-box .value {
-            color: #58a6ff;
-            font-size: 1.5em;
-            font-weight: 600;
+            background: linear-gradient(135deg, #79c0ff 0%, #58a6ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.6em;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
     </style>
 </head>
