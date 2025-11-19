@@ -1,0 +1,6 @@
+notebook
+pandas
+requests
+pygithub
+plotly
+matplotlib

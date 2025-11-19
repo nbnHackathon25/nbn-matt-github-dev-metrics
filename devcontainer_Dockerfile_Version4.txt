@@ -1,0 +1,8 @@
+FROM mcr.microsoft.com/devcontainers/python:3.11
+
+# Install pip dependencies
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install -r /tmp/requirements.txt
+
+# Expose notebook port (for dashboard)
+EXPOSE 8888

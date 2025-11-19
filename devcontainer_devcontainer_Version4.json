@@ -1,0 +1,16 @@
+{
+  "name": "GitHub Metrics Dashboard",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "settings": {
+    "python.pythonPath": "/usr/local/bin/python",
+    "terminal.integrated.defaultProfile.linux": "bash"
+  },
+  "extensions": [
+    "ms-python.python",
+    "ms-toolsai.jupyter"
+  ],
+  "forwardPorts": [8888],
+  "postCreateCommand": "pip install -r requirements.txt"
+}
