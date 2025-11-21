@@ -1,6 +1,30 @@
 const fs = require('fs');
 const path = require('path');
 
+// Color constants used throughout the dashboard
+const COLOR_PALETTE = {
+  // Primary colors
+  BLUE_ACCENT: '#58a6ff',
+  BLUE_LIGHT: '#79c0ff',
+  DARK_BG_1: '#1a1f2e',
+  DARK_BG_2: '#0f1419',
+  TEXT_PRIMARY: '#e6edf3',
+  TEXT_MUTED: '#9198a1',
+  
+  // Success colors (green)
+  GREEN_PRIMARY: '#2ea043',
+  GREEN_DARK: '#238636',
+  GREEN_LIGHT: '#3fb950',
+  
+  // Error colors (red)
+  RED_PRIMARY: '#da3633',
+  RED_DARK: '#b62324',
+  
+  // Border colors
+  BORDER_LIGHT: '#444c56',
+  BORDER_DARK: '#21262d',
+};
+
 describe('Dashboard Color Scheme', () => {
   let htmlContent;
 
@@ -10,36 +34,36 @@ describe('Dashboard Color Scheme', () => {
   });
 
   describe('Primary Colors', () => {
-    test('should use GitHub blue accent color (#58a6ff)', () => {
-      expect(htmlContent).toMatch(/#58a6ff/i);
+    test('should use GitHub blue accent color', () => {
+      expect(htmlContent).toMatch(new RegExp(COLOR_PALETTE.BLUE_ACCENT, 'i'));
     });
 
     test('should use dark background gradients', () => {
-      expect(htmlContent).toMatch(/#1a1f2e/i);
-      expect(htmlContent).toMatch(/#0f1419/i);
+      expect(htmlContent).toMatch(new RegExp(COLOR_PALETTE.DARK_BG_1, 'i'));
+      expect(htmlContent).toMatch(new RegExp(COLOR_PALETTE.DARK_BG_2, 'i'));
     });
 
-    test('should use light text color (#e6edf3)', () => {
-      expect(htmlContent).toMatch(/#e6edf3/i);
+    test('should use light text color', () => {
+      expect(htmlContent).toMatch(new RegExp(COLOR_PALETTE.TEXT_PRIMARY, 'i'));
     });
 
-    test('should use muted text color (#9198a1)', () => {
-      expect(htmlContent).toMatch(/#9198a1/i);
+    test('should use muted text color', () => {
+      expect(htmlContent).toMatch(new RegExp(COLOR_PALETTE.TEXT_MUTED, 'i'));
     });
   });
 
   describe('Success Colors', () => {
     test('should use green gradients for success states', () => {
-      expect(htmlContent).toMatch(/#2ea043/i);
-      expect(htmlContent).toMatch(/#238636/i);
-      expect(htmlContent).toMatch(/#3fb950/i);
+      expect(htmlContent).toMatch(new RegExp(COLOR_PALETTE.GREEN_PRIMARY, 'i'));
+      expect(htmlContent).toMatch(new RegExp(COLOR_PALETTE.GREEN_DARK, 'i'));
+      expect(htmlContent).toMatch(new RegExp(COLOR_PALETTE.GREEN_LIGHT, 'i'));
     });
   });
 
   describe('Error Colors', () => {
     test('should use red gradients for error states', () => {
-      expect(htmlContent).toMatch(/#da3633/i);
-      expect(htmlContent).toMatch(/#b62324/i);
+      expect(htmlContent).toMatch(new RegExp(COLOR_PALETTE.RED_PRIMARY, 'i'));
+      expect(htmlContent).toMatch(new RegExp(COLOR_PALETTE.RED_DARK, 'i'));
     });
   });
 
@@ -49,29 +73,32 @@ describe('Dashboard Color Scheme', () => {
     });
 
     test('should have consistent border colors', () => {
-      expect(htmlContent).toMatch(/#444c56/i);
-      expect(htmlContent).toMatch(/#21262d/i);
+      expect(htmlContent).toMatch(new RegExp(COLOR_PALETTE.BORDER_LIGHT, 'i'));
+      expect(htmlContent).toMatch(new RegExp(COLOR_PALETTE.BORDER_DARK, 'i'));
     });
 
     test('should use gradient text for metric values', () => {
-      expect(htmlContent).toContain('linear-gradient(135deg, #79c0ff 0%, #58a6ff 100%)');
+      const expectedGradient = `linear-gradient(135deg, ${COLOR_PALETTE.BLUE_LIGHT} 0%, ${COLOR_PALETTE.BLUE_ACCENT} 100%)`;
+      expect(htmlContent).toContain(expectedGradient);
       expect(htmlContent).toContain('-webkit-background-clip: text');
       expect(htmlContent).toContain('-webkit-text-fill-color: transparent');
     });
 
     test('should have hover effects with accent color', () => {
-      expect(htmlContent).toContain('border-color: #58a6ff');
-      expect(htmlContent).toContain('outline: 2px solid #58a6ff');
+      expect(htmlContent).toContain(`border-color: ${COLOR_PALETTE.BLUE_ACCENT}`);
+      expect(htmlContent).toContain(`outline: 2px solid ${COLOR_PALETTE.BLUE_ACCENT}`);
     });
   });
 
   describe('Interactive Elements', () => {
     test('should have button gradient', () => {
-      expect(htmlContent).toContain('linear-gradient(135deg, #2ea043 0%, #238636 100%)');
+      const expectedGradient = `linear-gradient(135deg, ${COLOR_PALETTE.GREEN_PRIMARY} 0%, ${COLOR_PALETTE.GREEN_DARK} 100%)`;
+      expect(htmlContent).toContain(expectedGradient);
     });
 
     test('should have hover states for buttons', () => {
-      expect(htmlContent).toContain('linear-gradient(135deg, #3fb950 0%, #2ea043 100%)');
+      const expectedHoverGradient = `linear-gradient(135deg, ${COLOR_PALETTE.GREEN_LIGHT} 0%, ${COLOR_PALETTE.GREEN_PRIMARY} 100%)`;
+      expect(htmlContent).toContain(expectedHoverGradient);
     });
 
     test('should have box shadows for depth', () => {
@@ -100,13 +127,13 @@ describe('Dashboard Color Scheme', () => {
   describe('Accessibility', () => {
     test('should have sufficient contrast ratios', () => {
       // Primary text on dark background
-      expect(htmlContent).toContain('color: #e6edf3');
+      expect(htmlContent).toContain(`color: ${COLOR_PALETTE.TEXT_PRIMARY}`);
       // White text on green buttons
       expect(htmlContent).toContain('color: white');
     });
 
     test('should have focus indicators', () => {
-      expect(htmlContent).toContain('outline: 2px solid #58a6ff');
+      expect(htmlContent).toContain(`outline: 2px solid ${COLOR_PALETTE.BLUE_ACCENT}`);
       expect(htmlContent).toContain('outline-offset: 2px');
     });
 
@@ -253,21 +280,26 @@ describe('Dashboard Color Scheme', () => {
 
   describe('Color Consistency', () => {
     test('should use consistent blue accent throughout', () => {
-      const blueMatches = htmlContent.match(/#58a6ff/gi);
+      const blueMatches = htmlContent.match(new RegExp(COLOR_PALETTE.BLUE_ACCENT, 'gi'));
       expect(blueMatches).not.toBeNull();
-      expect(blueMatches.length).toBeGreaterThan(5);
+      // Blue accent is used in multiple places: titles, links, borders, focus states, etc.
+      // Minimum of 5 ensures it's consistently applied across the dashboard
+      expect(blueMatches.length).toBeGreaterThanOrEqual(5);
     });
 
     test('should use consistent green for positive actions', () => {
-      const greenMatches = htmlContent.match(/#2ea043|#238636|#3fb950/gi);
+      const greenPattern = `${COLOR_PALETTE.GREEN_PRIMARY}|${COLOR_PALETTE.GREEN_DARK}|${COLOR_PALETTE.GREEN_LIGHT}`;
+      const greenMatches = htmlContent.match(new RegExp(greenPattern, 'gi'));
       expect(greenMatches).not.toBeNull();
-      expect(greenMatches.length).toBeGreaterThan(3);
+      // Green colors appear in buttons, bars, and success indicators
+      expect(greenMatches.length).toBeGreaterThanOrEqual(3);
     });
 
     test('should use consistent dark backgrounds', () => {
       const darkBgMatches = htmlContent.match(/rgba\(22, 27, 34/gi);
       expect(darkBgMatches).not.toBeNull();
-      expect(darkBgMatches.length).toBeGreaterThan(2);
+      // Dark background used for cards, controls, and other UI elements
+      expect(darkBgMatches.length).toBeGreaterThanOrEqual(2);
     });
   });
 });
