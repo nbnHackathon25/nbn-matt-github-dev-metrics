@@ -25,6 +25,21 @@ const COLOR_PALETTE = {
   BORDER_DARK: '#21262d',
 };
 
+// Minimum expected usage counts for color consistency tests
+const EXPECTED_USAGE = {
+  // Blue accent is used in titles, links, borders, focus states, gradients, etc.
+  MIN_BLUE_ACCENT_USAGE: 5,
+  // Green colors appear in buttons, bars, success indicators, and gradients
+  MIN_GREEN_COLOR_USAGE: 3,
+  // Dark background used for cards, controls, modals, and other UI elements
+  MIN_DARK_BG_USAGE: 2,
+};
+
+// Regex patterns for testing
+const PATTERNS = {
+  DARK_BG_RGBA: /rgba\(22, 27, 34/gi,
+};
+
 describe('Dashboard Color Scheme', () => {
   let htmlContent;
 
@@ -282,24 +297,20 @@ describe('Dashboard Color Scheme', () => {
     test('should use consistent blue accent throughout', () => {
       const blueMatches = htmlContent.match(new RegExp(COLOR_PALETTE.BLUE_ACCENT, 'gi'));
       expect(blueMatches).not.toBeNull();
-      // Blue accent is used in multiple places: titles, links, borders, focus states, etc.
-      // Minimum of 5 ensures it's consistently applied across the dashboard
-      expect(blueMatches.length).toBeGreaterThanOrEqual(5);
+      expect(blueMatches.length).toBeGreaterThanOrEqual(EXPECTED_USAGE.MIN_BLUE_ACCENT_USAGE);
     });
 
     test('should use consistent green for positive actions', () => {
       const greenPattern = `${COLOR_PALETTE.GREEN_PRIMARY}|${COLOR_PALETTE.GREEN_DARK}|${COLOR_PALETTE.GREEN_LIGHT}`;
       const greenMatches = htmlContent.match(new RegExp(greenPattern, 'gi'));
       expect(greenMatches).not.toBeNull();
-      // Green colors appear in buttons, bars, and success indicators
-      expect(greenMatches.length).toBeGreaterThanOrEqual(3);
+      expect(greenMatches.length).toBeGreaterThanOrEqual(EXPECTED_USAGE.MIN_GREEN_COLOR_USAGE);
     });
 
     test('should use consistent dark backgrounds', () => {
-      const darkBgMatches = htmlContent.match(/rgba\(22, 27, 34/gi);
+      const darkBgMatches = htmlContent.match(PATTERNS.DARK_BG_RGBA);
       expect(darkBgMatches).not.toBeNull();
-      // Dark background used for cards, controls, and other UI elements
-      expect(darkBgMatches.length).toBeGreaterThanOrEqual(2);
+      expect(darkBgMatches.length).toBeGreaterThanOrEqual(EXPECTED_USAGE.MIN_DARK_BG_USAGE);
     });
   });
 });
