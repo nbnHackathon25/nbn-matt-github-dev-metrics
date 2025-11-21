@@ -116,6 +116,17 @@ describe('MetricsController API Tests', () => {
       expect(response.status).toBe(200);
       expect(response.body).toEqual(mockData);
     });
+
+    test('should handle errors', async () => {
+      controller.metricsService.getPRMetrics.mockRejectedValue(
+        new Error('API error')
+      );
+
+      const response = await request(app).get('/api/metrics/prs');
+
+      expect(response.status).toBe(500);
+      expect(response.body).toHaveProperty('error', 'API error');
+    });
   });
 
   describe('GET /api/metrics/issues', () => {
@@ -137,6 +148,17 @@ describe('MetricsController API Tests', () => {
       expect(response.status).toBe(200);
       expect(response.body).toEqual(mockData);
     });
+
+    test('should handle errors', async () => {
+      controller.metricsService.getIssueMetrics.mockRejectedValue(
+        new Error('API error')
+      );
+
+      const response = await request(app).get('/api/metrics/issues');
+
+      expect(response.status).toBe(500);
+      expect(response.body).toHaveProperty('error', 'API error');
+    });
   });
 
   describe('GET /api/metrics/contributions', () => {
@@ -156,6 +178,17 @@ describe('MetricsController API Tests', () => {
 
       expect(response.status).toBe(200);
       expect(response.body).toEqual(mockData);
+    });
+
+    test('should handle errors', async () => {
+      controller.metricsService.getContributionTrends.mockRejectedValue(
+        new Error('API error')
+      );
+
+      const response = await request(app).get('/api/metrics/contributions');
+
+      expect(response.status).toBe(500);
+      expect(response.body).toHaveProperty('error', 'API error');
     });
   });
 
@@ -183,6 +216,17 @@ describe('MetricsController API Tests', () => {
 
       expect(response.status).toBe(200);
       expect(response.body).toEqual(mockData);
+    });
+
+    test('should handle errors', async () => {
+      controller.metricsService.getActivityHeatmap.mockRejectedValue(
+        new Error('API error')
+      );
+
+      const response = await request(app).get('/api/metrics/activity');
+
+      expect(response.status).toBe(500);
+      expect(response.body).toHaveProperty('error', 'API error');
     });
   });
 
@@ -226,6 +270,17 @@ describe('MetricsController API Tests', () => {
 
       expect(response.status).toBe(200);
       expect(controller.metricsService.getAllMetrics).toHaveBeenCalledWith(90);
+    });
+
+    test('should handle errors', async () => {
+      controller.metricsService.getAllMetrics.mockRejectedValue(
+        new Error('API error')
+      );
+
+      const response = await request(app).get('/api/metrics/all');
+
+      expect(response.status).toBe(500);
+      expect(response.body).toHaveProperty('error', 'API error');
     });
   });
 });
