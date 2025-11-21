@@ -127,6 +127,12 @@ describe('GitHubMetricsService', () => {
       expect(result.mergeRate).toBe('0.00%');
       expect(result.avgCycleTimeHours).toBe('0.00');
     });
+
+    test('should handle errors gracefully', async () => {
+      mockOctokit.paginate.mockRejectedValue(new Error('API error'));
+
+      await expect(service.getPRMetrics(30)).rejects.toThrow('API error');
+    });
   });
 
   describe('Metric 3: getIssueMetrics', () => {
@@ -182,6 +188,54 @@ describe('GitHubMetricsService', () => {
       const result = await service.getIssueMetrics(30);
 
       expect(result.total).toBe(1);
+    });
+
+    test('should calculate triage time with comments', async () => {
+      const now = new Date();
+      const yesterday = new Date(now);
+      yesterday.setDate(yesterday.getDate() - 1);
+
+      const mockIssues = [
+        {
+          number: 1,
+          created_at: yesterday.toISOString(),
+          closed_at: now.toISOString(),
+          state: 'closed',
+        },
+      ];
+
+      mockOctokit.paginate.mockResolvedValue(mockIssues);
+      mockOctokit.issues.listComments.mockResolvedValue({
+        data: [{ created_at: now.toISOString() }],
+      });
+
+      const result = await service.getIssueMetrics(30);
+
+      expect(parseFloat(result.avgTriageTimeHours)).toBeGreaterThan(0);
+    });
+
+    test('should handle comment fetch errors gracefully', async () => {
+      const mockIssues = [
+        {
+          number: 1,
+          created_at: new Date().toISOString(),
+          state: 'open',
+        },
+      ];
+
+      mockOctokit.paginate.mockResolvedValue(mockIssues);
+      mockOctokit.issues.listComments.mockRejectedValue(new Error('Comment API error'));
+
+      const result = await service.getIssueMetrics(30);
+
+      expect(result).toHaveProperty('total', 1);
+      expect(result.avgTriageTimeHours).toBe('0.00');
+    });
+
+    test('should handle errors gracefully', async () => {
+      mockOctokit.paginate.mockRejectedValue(new Error('API error'));
+
+      await expect(service.getIssueMetrics(30)).rejects.toThrow('API error');
     });
   });
 
@@ -244,6 +298,33 @@ describe('GitHubMetricsService', () => {
 
       expect(result.contributors[0].user).toBe('user1');
       expect(result.contributors[0].commits).toBe(2);
+    });
+
+    test('should handle PRs from new contributors', async () => {
+      const mockCommits = [];
+
+      const mockPRs = [
+        {
+          created_at: new Date().toISOString(),
+          user: { login: 'newuser' },
+        },
+      ];
+
+      mockOctokit.paginate
+        .mockResolvedValueOnce(mockCommits)
+        .mockResolvedValueOnce(mockPRs);
+
+      const result = await service.getContributionTrends(30);
+
+      expect(result.contributors[0].user).toBe('newuser');
+      expect(result.contributors[0].commits).toBe(0);
+      expect(result.contributors[0].prsCreated).toBe(1);
+    });
+
+    test('should handle errors gracefully', async () => {
+      mockOctokit.paginate.mockRejectedValue(new Error('API error'));
+
+      await expect(service.getContributionTrends(30)).rejects.toThrow('API error');
     });
   });
 
@@ -308,6 +389,12 @@ describe('GitHubMetricsService', () => {
 
       expect(result.activityByHour[10]).toBe(2);
     });
+
+    test('should handle errors gracefully', async () => {
+      mockOctokit.paginate.mockRejectedValue(new Error('API error'));
+
+      await expect(service.getActivityHeatmap(30)).rejects.toThrow('API error');
+    });
   });
 
   describe('getAllMetrics', () => {
@@ -359,6 +446,12 @@ describe('GitHubMetricsService', () => {
       expect(result).toHaveProperty('contributionTrends');
       expect(result).toHaveProperty('activityHeatmap');
       expect(result).toHaveProperty('generatedAt');
+    });
+
+    test('should handle errors gracefully', async () => {
+      mockOctokit.paginate.mockRejectedValue(new Error('API error'));
+
+      await expect(service.getAllMetrics(30)).rejects.toThrow('API error');
     });
   });
 });
